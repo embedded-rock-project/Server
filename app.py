@@ -6,8 +6,8 @@ from base64 import b64encode
 routes = web.RouteTableDef()
 websockets = []
 camera_websockets = []
-pi_websockets = []
-pi_camera_websockets = []
+pi_websocket = None
+pi_camera_websocket = None
 
 @routes.get('/')
 async def hello(request):
@@ -16,10 +16,11 @@ async def hello(request):
 
 @routes.get('/pi')
 async def websocket_handler(request):
+    global pi_websocket
     pi_log_count = 0
     ws = web.WebSocketResponse()
-    pi_websockets.append(ws)
     await ws.prepare(request)
+    pi_websocket = ws
 
     async for msg in ws:
         pi_log_count += 1
@@ -33,28 +34,29 @@ async def websocket_handler(request):
             print('pi connection closed with exception %s' % ws.exception())
 
     print('pi websocket connection closed')
-    pi_websockets.remove(ws)
+    pi_websocket = None
     return ws
 
 
 @routes.post('/pi_data')
 async def websocket_handler(request):
     data = await request.json()
-    print(pi_websockets)
     if data == 'disconnect_request':
-        await asyncio.gather(*(ws.send_str("disconnect_request") for ws in pi_websockets))
+        await pi_websocket.send_str("disconnect_request")
     else:
-        await asyncio.gather(*(ws.send_json({"mode": int(data["data"])}) for ws in pi_websockets))
-
+        await pi_websocket.send_json({"mode": int(data["data"])})
     print('pi info sent: {}'.format({"mode": int(data["data"])}))
     return 
 
 
 @routes.get('/pi_camera_feed')
 async def websocket_handler(request):
+    global pi_camera_websocket
+    if pi_camera_websocket:
+        return
     count = 0
     ws = web.WebSocketResponse()
-    pi_camera_websockets.append(ws)
+    pi_camera_websocket = ws
     await ws.prepare(request)
 
     async for msg in ws:
@@ -66,15 +68,16 @@ async def websocket_handler(request):
             print('pi camera connection closed with exception %s' % ws.exception())
 
     print('pi camera connection closed')
-    pi_camera_websockets.remove(ws)
+    pi_camera_websocket = None
     return ws
 
 @routes.get('/ws')
 async def websocket_handler(request):
     count = 0
     ws = web.WebSocketResponse()
-    websockets.append(ws)
     await ws.prepare(request)
+    websockets.append(ws)
+
 
     async for msg in ws:
         count += 1
@@ -82,7 +85,7 @@ async def websocket_handler(request):
             if msg.data == 'disconnect_request':
                 await ws.close()
             else:
-                await ws.send_str("client log #{}: {}".format(count, msg.data))
+                await asyncio.gather(*(ws.send_str("client: {}".format(msg.data)) for ws in websockets))
         elif msg.type == aiohttp.WSMsgType.ERROR:
             print('ws connection closed with exception %s' % ws.exception())
 
