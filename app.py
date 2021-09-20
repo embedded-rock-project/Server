@@ -44,7 +44,7 @@ async def websocket_handler(request):
     if data == 'disconnect_request':
         await pi_websocket.send_str("disconnect_request")
     else:
-        await pi_websocket.send_json({"mode": int(data["data"])})
+        await pi_websocket.send_json({"sensor": data["sensor"], "mode": int(data["data"])})
     print('pi info sent: {}'.format({"mode": int(data["data"])}))
     return 
 
@@ -52,18 +52,21 @@ async def websocket_handler(request):
 @routes.get('/pi_camera_feed')
 async def websocket_handler(request):
     global pi_camera_websocket
-    if pi_camera_websocket:
-        return
-    count = 0
     ws = web.WebSocketResponse()
-    pi_camera_websocket = ws
     await ws.prepare(request)
+    pi_camera_websocket = ws
 
     async for msg in ws:
-        count += 1
         if msg.type == aiohttp.WSMsgType.BINARY:
             data = b64encode(msg.data)
+            print(camera_websockets)
             await asyncio.gather(*(ws.send_str(data.decode("ascii")) for ws in camera_websockets))
+        elif msg.type == aiohttp.WSMsgType.TEXT:
+            print("hi")
+            print(msg.data)
+            if msg.data == "disconnect_request":
+                ws.force_close()
+                break
         elif msg.type == aiohttp.WSMsgType.ERROR:
             print('pi camera connection closed with exception %s' % ws.exception())
 

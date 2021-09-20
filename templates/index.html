@@ -41,12 +41,12 @@
                return false;
             };
 
-            $("form#emit").submit(function (event) {
+            $("form#camera_switch").submit(function (event) {
                 if (!isOpen(socket)) {
                     appendToLogs("Already closed socket!");
                     return false;
                 }
-                socket.send($("#emit_data").val());
+                socket.send($("#camera-mode").val());
                 return false;
             });
             $("form#broadcast").submit(function (event) {
@@ -58,7 +58,7 @@
                 xhr.open("POST", `https://${window.location.host}/pi_data`, true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
-                    data: $("#broadcast_data").val()
+                    sensor: "camera", data: $("#broadcast_data").val()
                 }));
                 return false;
             });
@@ -80,8 +80,8 @@
 
 <body style="background-color: white">
     <h1 style="background-color: white">PI Client Report</h1>
-    <form id="emit" method="POST" action="#">
-        <input type="text" name="emit_data" id="emit_data" placeholder="Message" />
+    <form id="camera_switch" method="POST" action="#">
+        <input type="text" name="camera_mode" id="camera_mode" placeholder="Message" />
         <input type="submit" value="Send Message" />
     </form>
     <form id="broadcast" method="POST" action="#">
