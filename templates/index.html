@@ -41,24 +41,24 @@
                return false;
             };
 
-            $("form#camera_switch").submit(function (event) {
+            $("form#client_message").submit(function (event) {
                 if (!isOpen(socket)) {
                     appendToLogs("Already closed socket!");
                     return false;
                 }
-                socket.send($("#camera-mode").val());
+                socket.send($("#client_message").val());
                 return false;
             });
-            $("form#broadcast").submit(function (event) {
+            $("form#camera_mode").submit(function (event) {
                 if (!isOpen(socket)) {
                     appendToLogs("Already closed socket!");
                     return false;
                 }
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", `https://${window.location.host}/pi_data`, true);
+                xhr.open("POST", `http://${window.location.host}/pi_data`, true);
                 xhr.setRequestHeader('Content-Type', 'application/json');
                 xhr.send(JSON.stringify({
-                    sensor: "camera", data: $("#broadcast_data").val()
+                    sensor: "camera", data: $("#camera_mode_data").val()
                 }));
                 return false;
             });
@@ -80,12 +80,12 @@
 
 <body style="background-color: white">
     <h1 style="background-color: white">PI Client Report</h1>
-    <form id="camera_switch" method="POST" action="#">
-        <input type="text" name="camera_mode" id="camera_mode" placeholder="Message" />
+    <form id="client_message" method="POST" action="#">
+        <input type="text" name="client_message" id="client_message" placeholder="Message" />
         <input type="submit" value="Send Message" />
     </form>
-    <form id="broadcast" method="POST" action="#">
-        <input type="text" name="broadcast_data" id="broadcast_data" placeholder="Message" />
+    <form id="camera_mode" method="POST" action="#">
+        <input type="text" name="camera_mode_data" id="camera_mode_data" placeholder="Message" />
         <input type="submit" value="Switch Camera Mode" />
     </form>
 

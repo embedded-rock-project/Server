@@ -59,7 +59,6 @@ async def websocket_handler(request):
     async for msg in ws:
         if msg.type == aiohttp.WSMsgType.BINARY:
             data = b64encode(msg.data)
-            print(camera_websockets)
             await asyncio.gather(*(ws.send_str(data.decode("ascii")) for ws in camera_websockets))
         elif msg.type == aiohttp.WSMsgType.TEXT:
             print("hi")
