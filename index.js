@@ -1,3 +1,35 @@
+function changeStyle(elementName, isEnabled) {
+  if (isEnabled) {
+    document.getElementById(elementName).className = "fas fa-check onicon";
+  } else {
+    document.getElementById(elementName).className = "fas fa-times officon";
+  }
+}
+
+function toggleElement(elementName, value) {
+  document.getElementById(elementName).innerHTML = value;
+
+}
+
+function appendToLogs(text) {
+  $("#log").append("<br>" + $("<div/>").text(text).html());
+}
+
+function sendRequest(sensorType, isSensorOn, dataByte) {
+  var newRequest = new XMLHttpRequest();
+  newRequest.open("POST", `http://${window.location.host}/pi_data`, true);
+  newRequest.setRequestHeader("Content-Type", "application/json");
+  newRequest.send(
+    JSON.stringify({
+      sensor: sensorType,
+      isSensorOn: isSensorOn,
+      mode: dataByte,
+    })
+  );
+}
+
+
+
 var m = 0;
 function motionOn() {
   if (m == 0) {
@@ -30,6 +62,7 @@ function cameraOn() {
     c = 0;
   }
   sendRequest("camera", c, parseInt($("#camera_mode_data").val()))
+  changeStyle("cameraicon", c)
 }
 
 var d = 0;
@@ -44,52 +77,6 @@ function distanceOn() {
   }
 }
 
-var x = 0;
-function changeStyle() {
-  if (x == 0) {
-    document.getElementById("motionicon").className = "fas fa-check onicon";
-    x = 1;
-  } else {
-    document.getElementById("motionicon").className = "fas fa-times officon";
-    x = 0;
-  }
-}
-
-// var sec = 0;
-// var new = false;
-// function enableSecurity() {
-//     if (sec == 0) {
-//         new = true
-//         sec = 1
-//     } else {
-//         new = false
-//         sec = 0
-//     }
-
-//     while (new) {
-//         var getMotionRequest = new XMLHttpRequest();
-//         getMotionRequest.open("GET", `http://${window.location.host}/pi_data`, true);
-//         getMotionRequest.setRequestHeader("Content-Type", "application/json");
-//     }
-
-// }
-
-function appendToLogs(text) {
-  $("#log").append("<br>" + $("<div/>").text(text).html());
-}
-
-function sendRequest(sensorType, isSensorOn, dataByte) {
-  var newRequest = new XMLHttpRequest();
-  newRequest.open("POST", `http://${window.location.host}/pi_data`, true);
-  newRequest.setRequestHeader("Content-Type", "application/json");
-  newRequest.send(
-    JSON.stringify({
-      sensor: sensorType,
-      isSensorOn: isSensorOn,
-      mode: dataByte,
-    })
-  );
-}
 
 function onLoad() {
 
@@ -127,7 +114,7 @@ function onLoad() {
       appendToLogs("Already closed socket!");
       return false;
     }
-    sendRequest("camera", c, $("#camera_mode_data").val())
+    sendRequest("camera", c, parseInt($("#camera_mode_data").val()))
     return false;
   });
 
