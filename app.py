@@ -9,10 +9,21 @@ camera_websockets = []
 pi_websocket = None
 pi_camera_websocket = None
 
+
+
+@routes.get('/index.js')
+async def test(request):
+    return web.Response(text=open('index.js').read(), content_type="text/javascript")
+
+@routes.get('/index.css')
+async def test(request):
+    return web.Response(text=open('index.css').read(), content_type="text/css")
+
 @routes.get('/')
-async def hello(request):
-    html = open("templates/index.html").read()
-    return web.Response(text=html, content_type="text/html")
+async def test(request):
+    return web.Response(text=open('index.html').read(), content_type="text/html")
+
+
 
 @routes.get('/pi')
 async def websocket_handler(request):
@@ -41,11 +52,7 @@ async def websocket_handler(request):
 @routes.post('/pi_data')
 async def websocket_handler(request):
     data = await request.json()
-    if data == 'disconnect_request':
-        await pi_websocket.send_str("disconnect_request")
-    else:
-        await pi_websocket.send_json({"sensor": data["sensor"], "mode": int(data["data"])})
-    print('pi info sent: {}'.format({"mode": int(data["data"])}))
+    await pi_websocket.send_json(data)
     return 
 
 
@@ -61,8 +68,6 @@ async def websocket_handler(request):
             data = b64encode(msg.data)
             await asyncio.gather(*(ws.send_str(data.decode("ascii")) for ws in camera_websockets))
         elif msg.type == aiohttp.WSMsgType.TEXT:
-            print("hi")
-            print(msg.data)
             if msg.data == "disconnect_request":
                 ws.force_close()
                 break
@@ -86,6 +91,7 @@ async def websocket_handler(request):
         if msg.type == aiohttp.WSMsgType.TEXT:
             if msg.data == 'disconnect_request':
                 await ws.close()
+                break
             else:
                 await asyncio.gather(*(ws.send_str("client: {}".format(msg.data)) for ws in websockets))
         elif msg.type == aiohttp.WSMsgType.ERROR:
@@ -108,6 +114,7 @@ async def websocket_handler(request):
         if msg.type == aiohttp.WSMsgType.TEXT:
             if msg.data == 'disconnect_request':
                 ws.force_close()
+                break
         elif msg.type == aiohttp.WSMsgType.ERROR:
             print('ws connection closed with exception %s' % ws.exception())
 
