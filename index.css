@@ -153,3 +153,21 @@ body {
     border-radius: 50%;
   }
   
+  .alllogs {
+    background-color: rgb(194, 194, 194);
+    overflow-y: scroll;
+    height:480px;
+    white-space: nowrap;
+  }
+  
+  .alllogs a {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px;
+    text-decoration: none;
+  }
+  
+  .alllogs a:hover {
+    background-color: rgb(204, 204, 204);
+  }

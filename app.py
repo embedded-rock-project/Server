@@ -52,7 +52,11 @@ async def websocket_handler(request):
 @routes.post('/pi_data')
 async def websocket_handler(request):
     data = await request.json()
-    await pi_websocket.send_json(data)
+    print(data)
+    try:
+        await pi_websocket.send_json(data)
+    except Exception:
+        pass
     return 
 
 
