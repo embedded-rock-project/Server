@@ -3,9 +3,11 @@ function motionOn() {
   if (m == 0) {
     document.getElementById("onoroff").innerHTML = "On";
     m = 1;
+    sendRequest("motion", m, m);
   } else {
     document.getElementById("onoroff").innerHTML = "Off";
     m = 0;
+    sendRequest("motion", m, m);
   }
 }
 
@@ -14,9 +16,11 @@ function pressureOn() {
   if (p == 0) {
     document.getElementById("onoroff1").innerHTML = "On";
     p = 1;
+    sendRequest("pressure", p, p);
   } else {
     document.getElementById("onoroff1").innerHTML = "Off";
     p = 0;
+    sendRequest("pressure", p, p);
   }
 }
 
@@ -25,11 +29,13 @@ function cameraOn() {
   if (c == 0) {
     document.getElementById("onoroff2").innerHTML = "On";
     c = 1;
+    cameraWindow = window.open("camera_popup");
   } else {
     document.getElementById("onoroff2").innerHTML = "Off";
     c = 0;
+    cameraWindow.close();
   }
-  sendRequest("camera", c, parseInt($("#camera_mode_data").val()))
+  sendRequest("camera", c, 0);
 }
 
 var d = 0;
@@ -37,42 +43,38 @@ function distanceOn() {
   if (d == 0) {
     document.getElementById("onoroff3").innerHTML = "On";
     d = 1;
-    //sendRequest("distance", d);
+    sendRequest("distance", d, d);
   } else {
     document.getElementById("onoroff3").innerHTML = "Off";
     d = 0;
+    sendRequest("distance", d, d);
   }
 }
 
-var x = 0;
-function changeStyle() {
-  if (x == 0) {
-    document.getElementById("motionicon").className = "fas fa-check onicon";
-    x = 1;
+function changeStyle(x) {
+  if (x.includes("1") || x.includes("Motion detected")) {
+    document.getElementById("cameraicon").className = "fas fa-check onicon";
   } else {
-    document.getElementById("motionicon").className = "fas fa-times officon";
-    x = 0;
+    document.getElementById("cameraicon").className = "fas fa-times officon";
   }
 }
 
-// var sec = 0;
-// var new = false;
-// function enableSecurity() {
-//     if (sec == 0) {
-//         new = true
-//         sec = 1
-//     } else {
-//         new = false
-//         sec = 0
-//     }
+var b = 0;
+function backOneMode() {
+  if (b != 0) {
+    b = b - 1;
+    document.getElementById("test").innerHTML = b;
+    sendRequest("camera", c, b);
+  }
+}
 
-//     while (new) {
-//         var getMotionRequest = new XMLHttpRequest();
-//         getMotionRequest.open("GET", `http://${window.location.host}/pi_data`, true);
-//         getMotionRequest.setRequestHeader("Content-Type", "application/json");
-//     }
-
-// }
+function nextOneMode() {
+  if (b != 2) {
+    b = b + 1;
+    document.getElementById("test").innerHTML = b;
+    sendRequest("camera", c, b);
+  }
+}
 
 function appendToLogs(text) {
   $("#log").append("<br>" + $("<div/>").text(text).html());
@@ -92,17 +94,14 @@ function sendRequest(sensorType, isSensorOn, dataByte) {
 }
 
 function onLoad() {
-
-
   function isOpen(ws) {
     return socket.readyState === ws.OPEN;
   }
 
-
   var socket = new WebSocket("ws://" + window.location.host + "/ws");
-  var img_socket = new WebSocket("ws://" + window.location.host + "/ws_camera_feed");
-
-
+  var img_socket = new WebSocket(
+    "ws://" + window.location.host + "/ws_camera_feed"
+  );
 
   socket.onopen = function () {
     socket.send("connected to the SocketServer...");
@@ -113,6 +112,7 @@ function onLoad() {
   };
 
   socket.onmessage = function (msg, cb) {
+    changeStyle(msg.data);
     appendToLogs(msg.data);
     if (cb) cb();
   };
@@ -127,7 +127,7 @@ function onLoad() {
       appendToLogs("Already closed socket!");
       return false;
     }
-    sendRequest("camera", c, $("#camera_mode_data").val())
+    sendRequest("camera", c, $("#camera_mode_data").val());
     return false;
   });
 
@@ -140,4 +140,4 @@ function onLoad() {
     socket.send("disconnect_request");
     return false;
   });
-};
+}

@@ -1,0 +1,10 @@
+.camorder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+body {
+  text-align: center;
+}

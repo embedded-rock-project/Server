@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/a65ca60275.js" crossorigin="anonymous"></script>
-   <link href="/index.css", rel="stylesheet" type="text/css">
+    <link href="/templates/home/index.css", rel="stylesheet" type="text/css">
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
-    <script type="text/javascript" href="/index.js"></script>
+    <script type="text/javascript" src="/templates/home/index.js"></script>
     <script type="text/javascript" charset="utf-8">
 
         $(document).ready(function(){
-            $.getScript("/index.js",function(){
+            $.getScript("/templates/home/index.js",function(){
                 onLoad();
             });
         });
@@ -42,6 +42,7 @@
             <span id='onoroff1' class='labelsO'>Off</span>
             <i class="fas fa-times officon" id='pressureicon'></i>
         </div>
+
         <div class='camera'>
             <span class='labelsB'>Camera</span>
             <label class="switch">
@@ -51,6 +52,7 @@
             <span id='onoroff2' class='labelsO'>Off</span>
             <i class="fas fa-times officon" id='cameraicon'></i>
         </div>
+
         <div class='distance'>
             <span class='labelsB'>Distance Sensor</span>
             <label class="switch">
@@ -60,48 +62,9 @@
             <span id='onoroff3' class='labelsO'>Off</span>
             <i class="fas fa-times officon" id='distanceicon'></i>
         </div>
-
-        <div class='cameramode'>
-            <form id="camera_mode" method="POST" action="#">
-                <input type="number" name="camera_mode_data" id="camera_mode_data" placeholder="Message" />
-                <input type="submit" value="Switch Camera Mode (0, 1, or 2)" />
-            </form>
-        </div>
-        <div class='camerafeed'>
-            <img id="cam" src=""/>
-        </div>
-        <div class="alllogs">
-            <div id="log"></div>
-        </div>
         
     </div>
-    <!-- <div class='detectSignals'>
-        <div id='motionDet' class='box red'></div>
-        <div id='pressureDet' class='box red'></div>
-        <div id='cameraDet' class='box red'></div>
-        <div id='distanceDet' class='box red'></div>
-    </div> -->
-
     <button onclick=changeStyle()>Change Style</button>
-
-    <!-- <div>
-        <h1 style="background-color: white">PI Client Report</h1>
-        <form id="client_message" method="POST" action="#">
-            <input type="text" name="client_message" id="client_message" placeholder="Message" />
-            <input type="submit" value="Send Message" />
-        </form>
-        <form id="camera_mode" method="POST" action="#">
-            <input type="text" name="camera_mode_data" id="camera_mode_data" placeholder="Message" />
-            <input type="submit" value="Switch Camera Mode" />
-        </form>
-
-        <form id="disconnect" method="POST" action="#">
-            <input type="submit" value="Disconnect From Server" />
-        </form>
-        <img id="cam" src=""/>
-        <h2 style="background-color: white">Logs</h2>
-        <div id="log"></div>
-    </div> -->
 
 </body>
 
