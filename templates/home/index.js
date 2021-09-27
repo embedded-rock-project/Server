@@ -46,9 +46,11 @@ function motionOn() {
   if (m == 0) {
     document.getElementById("onoroff").innerHTML = "On";
     m = 1;
+    sendRequest("motion", m, m);
   } else {
     document.getElementById("onoroff").innerHTML = "Off";
     m = 0;
+    sendRequest("motion", m, m);
   }
 }
 
@@ -58,9 +60,11 @@ function pressureOn() {
   if (p == 0) {
     document.getElementById("onoroff1").innerHTML = "On";
     p = 1;
+    sendRequest("pressure", p, p);
   } else {
     document.getElementById("onoroff1").innerHTML = "Off";
     p = 0;
+    sendRequest("pressure", p, p);
   }
 }
 
@@ -84,10 +88,11 @@ function distanceOn() {
   if (d == 0) {
     document.getElementById("onoroff3").innerHTML = "On";
     d = 1;
-    //sendRequest("distance", d);
+    sendRequest("distance", d, d);
   } else {
     document.getElementById("onoroff3").innerHTML = "Off";
     d = 0;
+    sendRequest("distance", d, d);
   }
 }
 
@@ -147,4 +152,4 @@ function onLoad() {
     socket.send("disconnect_request");
     return false;
   });
-};
+}
