@@ -71,6 +71,27 @@ function appendToLogs(text) {
       document.getElementById("cameraicon").className = "fas fa-times officon";
     }
   }
+  if (text.includes("distance")) {
+    if (text.includes("Disturbance detected")) {
+      document.getElementById("distanceicon").className = "fas fa-check onicon";
+    } else {
+      document.getElementById("distanceicon").className = "fas fa-times officon";
+    }
+  }
+  if (text.includes("pressure")) {
+    if (text.incldues("Pressure not detected")) {
+      document.getElementById("pressureicon").className = "fas fa-check onicon";
+    } else {
+      document.getElementById("pressureicon").className = "fas fa-times officon";
+    }
+  }
+  if (text.includes("motion")) {
+    if (text.includes("Motion detected")) {
+      document.getElementById("motionicon").className = "fas fa-check onicon";
+    } else {
+      document.getElementById("motionicon").className = "fas fa-times officon";
+    }
+  }
   $("#log").append("<br>" + $("<div/>").text(text).html());
 }
 
