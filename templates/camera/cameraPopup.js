@@ -1,3 +1,5 @@
+//all varun just commenting -D
+//formatting json commands for camera and toggle for different camera modes.
 var b = 0;
 var c = 1;
 function backOneMode() {
@@ -37,7 +39,7 @@ function onLoad() {
   function isOpen(ws) {
     return socket.readyState === ws.OPEN;
   }
-
+//connecting to camera using websocket
   var socket = new WebSocket("ws://" + window.location.host + "/ws");
   var img_socket = new WebSocket(
     "ws://" + window.location.host + "/ws_camera_feed"
@@ -46,7 +48,7 @@ function onLoad() {
   socket.onopen = function () {
     socket.send("connected to the SocketServer...");
   };
-
+//error message + log handling
   socket.onerror = function (error) {
     appendToLogs(`Error: ${error}`);
   };
