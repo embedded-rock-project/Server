@@ -1,3 +1,5 @@
+##directory and file pathing for everything points to locations of files
+
 from aiohttp import web
 import aiohttp
 import asyncio
