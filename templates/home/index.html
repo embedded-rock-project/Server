@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -173,3 +174,73 @@
 </body>
 
 </html> -->
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="https://kit.fontawesome.com/a65ca60275.js" crossorigin="anonymous"></script>
+    <link href="/templates/home/index.css", rel="stylesheet" type="text/css">
+    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/templates/home/index.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function(){
+            $.getScript("/templates/home/index.js",function(){
+                onLoad();
+            });
+        });
+    </script>
+    <title>Rock Security</title>
+</head>
+<body>
+    <h1>Rock Security</h1>
+    
+    <div class='order'>
+        <div class='motion'>
+            <span class='labelsB'>Motion Sensor</span>
+            <label class="switch">
+                <input type="checkbox" onclick=motionOn()>
+                <span class="slider round"></span>
+            </label>
+            <span id='onoroff' class='labelsO'>Off</span>
+            <i class="fas fa-times officon" id='motionicon'></i>
+        </div>
+
+        <div class='pressure'>
+            <span class='labelsB'>Pressure Sensor</span>
+            <label class="switch">
+                <input type="checkbox" onclick=pressureOn()>
+                <span class="slider round"></span>
+            </label>
+            <span id='onoroff1' class='labelsO'>Off</span>
+            <i class="fas fa-times officon" id='pressureicon'></i>
+        </div>
+
+        <div class='camera'>
+            <span class='labelsB'>Camera</span>
+            <label class="switch">
+                <input type="checkbox" onclick=cameraOn()>
+                <span class="slider round"></span>
+            </label>
+            <span id='onoroff2' class='labelsO'>Off</span>
+            <i class="fas fa-times officon" id='cameraicon'></i>
+        </div>
+
+        <div class='distance'>
+            <span class='labelsB'>Distance Sensor</span>
+            <label class="switch">
+                <input type="checkbox" onclick=distanceOn()>
+                <span class="slider round"></span>
+            </label>
+            <span id='onoroff3' class='labelsO'>Off</span>
+            <i class="fas fa-times officon" id='distanceicon'></i>
+        </div>
+        
+    </div>
+
+</body>
+
+</html>
+>>>>>>> adf12a81b8c99f40352a7479390dd5eea57f9c0b

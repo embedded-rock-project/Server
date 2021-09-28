@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 .camorder {
   display: flex;
   flex-direction: row;
@@ -8,3 +9,15 @@
 body {
   text-align: center;
 }
+=======
+.camorder {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+body {
+  text-align: center;
+}
+>>>>>>> adf12a81b8c99f40352a7479390dd5eea57f9c0b
