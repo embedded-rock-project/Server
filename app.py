@@ -1,40 +1,53 @@
-##directory and file pathing for everything points to locations of files
+# directory and file pathing for everything points to locations of files
 
 from aiohttp import web
 import aiohttp
 import asyncio
 from base64 import b64encode
 
+# sets initial values
 routes = web.RouteTableDef()
 websockets = []
 camera_websockets = []
 pi_websocket = None
 pi_camera_websocket = None
 
+# gets all the files required to run the GUI/UI
+
 
 @routes.get('/templates/home/index.js')
 async def test(request):
     return web.Response(text=open('templates/home/index.js').read(), content_type="text/javascript")
+
+# index.css get
 
 
 @routes.get('/templates/home/index.css')
 async def test(request):
     return web.Response(text=open('templates/home/index.css').read(), content_type="text/css")
 
+# index.html get
+
 
 @routes.get('/')
 async def test(request):
     return web.Response(text=open('templates/home/index.html').read(), content_type="text/html")
+
+# cameraPopup.html get
 
 
 @routes.get('/camera_popup')
 async def test(request):
     return web.Response(text=open('templates/camera/cameraPopup.html').read(), content_type="text/html")
 
+# cameraPopup.js get
+
 
 @routes.get('/templates/camera/cameraPopup.js')
 async def test(request):
     return web.Response(text=open('templates/camera/cameraPopup.js').read(), content_type="text/javascript")
+
+# cameraPopup.css get
 
 
 @routes.get('/templates/camera/cameraPopup.css')
