@@ -76,7 +76,7 @@ function appendToLogs(text) {
 
 function sendRequest(sensorType, isSensorOn, dataByte) {
   var newRequest = new XMLHttpRequest();
-  newRequest.open("POST", `https://${window.location.host}/pi_data`, true);
+  newRequest.open("POST", `http://${window.location.host}/pi_data`, true);
   newRequest.setRequestHeader("Content-Type", "application/json");
   newRequest.send(
     JSON.stringify({
@@ -92,9 +92,9 @@ function onLoad() {
     return socket.readyState === ws.OPEN;
   }
 
-  var socket = new WebSocket("wss://" + window.location.host + "/ws");
+  var socket = new WebSocket("ws://" + window.location.host + "/ws");
   var img_socket = new WebSocket(
-    "wss://" + window.location.host + "/ws_camera_feed"
+    "ws://" + window.location.host + "/ws_camera_feed"
   );
 
   socket.onopen = function () {
