@@ -10,19 +10,34 @@ pi_websocket = None
 pi_camera_websocket = None
 
 
-
-@routes.get('/index.js')
+@routes.get('/templates/home/index.js')
 async def test(request):
-    return web.Response(text=open('index.js').read(), content_type="text/javascript")
+    return web.Response(text=open('templates/home/index.js').read(), content_type="text/javascript")
 
-@routes.get('/index.css')
+
+@routes.get('/templates/home/index.css')
 async def test(request):
-    return web.Response(text=open('index.css').read(), content_type="text/css")
+    return web.Response(text=open('templates/home/index.css').read(), content_type="text/css")
+
 
 @routes.get('/')
 async def test(request):
-    return web.Response(text=open('index.html').read(), content_type="text/html")
+    return web.Response(text=open('templates/home/index.html').read(), content_type="text/html")
 
+
+@routes.get('/camera_popup')
+async def test(request):
+    return web.Response(text=open('templates/camera/cameraPopup.html').read(), content_type="text/html")
+
+
+@routes.get('/templates/camera/cameraPopup.js')
+async def test(request):
+    return web.Response(text=open('templates/camera/cameraPopup.js').read(), content_type="text/javascript")
+
+
+@routes.get('/templates/camera/cameraPopup.css')
+async def test(request):
+    return web.Response(text=open('templates/camera/cameraPopup.css').read(), content_type="text/css")
 
 
 @routes.get('/pi')
@@ -52,12 +67,11 @@ async def websocket_handler(request):
 @routes.post('/pi_data')
 async def websocket_handler(request):
     data = await request.json()
-    print(data)
     try:
         await pi_websocket.send_json(data)
     except Exception:
         pass
-    return 
+    return
 
 
 @routes.get('/pi_camera_feed')
@@ -76,11 +90,13 @@ async def websocket_handler(request):
                 ws.force_close()
                 break
         elif msg.type == aiohttp.WSMsgType.ERROR:
-            print('pi camera connection closed with exception %s' % ws.exception())
+            print('pi camera connection closed with exception %s' %
+                  ws.exception())
 
     print('pi camera connection closed')
     pi_camera_websocket = None
     return ws
+
 
 @routes.get('/ws')
 async def websocket_handler(request):
@@ -88,7 +104,6 @@ async def websocket_handler(request):
     ws = web.WebSocketResponse()
     await ws.prepare(request)
     websockets.append(ws)
-
 
     async for msg in ws:
         count += 1
@@ -104,7 +119,6 @@ async def websocket_handler(request):
     print('client websocket connection closed')
     websockets.remove(ws)
     return ws
-
 
 
 @routes.get('/ws_camera_feed')

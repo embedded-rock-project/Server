@@ -18,7 +18,7 @@ function nextOneMode() {
 
 function sendRequest(sensorType, isSensorOn, dataByte) {
   var newRequest = new XMLHttpRequest();
-  newRequest.open("POST", `http://${window.location.host}/pi_data`, true);
+  newRequest.open("POST", `https://${window.location.host}/pi_data`, true);
   newRequest.setRequestHeader("Content-Type", "application/json");
   newRequest.send(
     JSON.stringify({

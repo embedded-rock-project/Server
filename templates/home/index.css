@@ -5,8 +5,8 @@ body {
 .order {
   display: flex;
   flex-direction: row;
-  padding-left: 350px;
   padding-top: 50px;
+  justify-content: center;
 }
 
 .motion {
