@@ -1,11 +1,16 @@
 var m = 0;
+var other = 0;
 function motionOn() {
   if (m == 0) {
     document.getElementById("onoroff").innerHTML = "On";
+    change_id(other);
+    other = 1;
     m = 1;
-    sendRequest("motion", m, m);
+    sendRequest("motion", m, m); 
   } else {
     document.getElementById("onoroff").innerHTML = "Off";
+    change_id(other);
+    other = 0;
     m = 0;
     sendRequest("motion", m, m);
   }
@@ -67,6 +72,10 @@ function appendToLogs(text) {
   if (text.includes("camera")) {
     if (text.includes("1") || text.includes("Motion detected")) {
       document.getElementById("cameraicon").className = "fas fa-check onicon";
+      /*
+      document.getElementsByTagName("body").style.backgroundColor = rgb(125,4,4);
+      document.getElementsByTagName("body").style.background = linear-gradient('90deg, rgba(125,4,4,1) 0%, rgba(244,5,5,1) 100%')
+      */
     } else {
       document.getElementById("cameraicon").className = "fas fa-times officon";
     }
@@ -133,4 +142,12 @@ function onLoad() {
     socket.send("disconnect_request");
     return false;
   });
+}
+
+function change_id(){
+  if(other == 0) {
+    document.getElementById('content').className = 'background';
+  } else {
+    document.getElementById('content').className = 'test';
+  } 
 }

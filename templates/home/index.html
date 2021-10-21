@@ -5,8 +5,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <script src="https://kit.fontawesome.com/a65ca60275.js" crossorigin="anonymous"></script>
     <link href="/templates/home/index.css", rel="stylesheet" type="text/css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> 
     <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
     <script type="text/javascript" src="/templates/home/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script> 
     <script type="text/javascript" charset="utf-8">
 
         $(document).ready(function(){
@@ -18,51 +20,51 @@
     <title>Rock Security</title>
 </head>
 <body>
-    <h1>Rock Security</h1>
-    
-    <div class='order'>
-        <div class='motion'>
-            <span class='labelsB'>Motion Sensor</span>
-            <label class="switch">
-                <input type="checkbox" onclick=motionOn()>
-                <span class="slider round"></span>
-            </label>
-            <span id='onoroff' class='labelsO'>Off</span>
-            <i class="fas fa-times officon" id='motionicon'></i>
-        </div>
+    <div id='content' class='test'>
+        <h1>Rock Security</h1>
+        <div class='order'>
+            <div class='motion'>
+                <span class='labelsB'>Motion Sensor</span>
+                <label class="switch">
+                    <input type="checkbox" onclick=motionOn()>
+                    <span class="slider round"></span>
+                </label>
+                <span id='onoroff' class='labelsO'>Off</span>
+                <i class="fas fa-times officon" id='motionicon'></i>
+            </div>
 
-        <div class='pressure'>
-            <span class='labelsB'>Pressure Sensor</span>
-            <label class="switch">
-                <input type="checkbox" onclick=pressureOn()>
-                <span class="slider round"></span>
-            </label>
-            <span id='onoroff1' class='labelsO'>Off</span>
-            <i class="fas fa-times officon" id='pressureicon'></i>
-        </div>
+            <div class='pressure'>
+                <span class='labelsB'>Pressure Sensor</span>
+                <label class="switch">
+                    <input type="checkbox" onclick=pressureOn()>
+                    <span class="slider round"></span>
+                </label>
+                <span id='onoroff1' class='labelsO'>Off</span>
+                <i class="fas fa-times officon" id='pressureicon'></i>
+            </div>
 
-        <div class='camera'>
-            <span class='labelsB'>Camera</span>
-            <label class="switch">
-                <input type="checkbox" onclick=cameraOn()>
-                <span class="slider round"></span>
-            </label>
-            <span id='onoroff2' class='labelsO'>Off</span>
-            <i class="fas fa-times officon" id='cameraicon'></i>
-        </div>
+            <div class='camera'>
+                <span class='labelsB'>Camera</span>
+                <label class="switch">
+                    <input type="checkbox" onclick=cameraOn()>
+                    <span class="slider round"></span>
+                </label>
+                <span id='onoroff2' class='labelsO'>Off</span>
+                <i class="fas fa-times officon" id='cameraicon'></i>
+            </div>
 
-        <div class='distance'>
-            <span class='labelsB'>Distance Sensor</span>
-            <label class="switch">
-                <input type="checkbox" onclick=distanceOn()>
-                <span class="slider round"></span>
-            </label>
-            <span id='onoroff3' class='labelsO'>Off</span>
-            <i class="fas fa-times officon" id='distanceicon'></i>
+            <div class='distance'>
+                <span class='labelsB'>Distance Sensor</span>
+                <label class="switch">
+                    <input type="checkbox" onclick=distanceOn()>
+                    <span class="slider round"></span>
+                </label>
+                <span id='onoroff3' class='labelsO'>Off</span>
+                <i class="fas fa-times officon" id='distanceicon'></i>
+            </div>
+            
         </div>
-        
     </div>
-
 </body>
 
 </html>
