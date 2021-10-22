@@ -34,6 +34,7 @@ function cameraOn() {
   } else {
     document.getElementById("onoroff2").innerHTML = "Off";
     c = 0;
+    other = 1;
     document.getElementById("cameraicon").className = "fas fa-times officon";
     cameraWindow.close();
   }
@@ -78,13 +79,49 @@ function logpage() {
 function appendToLogs(text) {
   if (text.includes("camera")) {
     if (text.includes("1") || text.includes("Motion detected")) {
+      other = 0;
       document.getElementById("cameraicon").className = "fas fa-check onicon";
       change_id(other);
-      other = 1;
     } else {
+      other = 1;
       document.getElementById("cameraicon").className = "fas fa-times officon";
       change_id(other)
+    }
+  }
+
+  if (text.includes("motion")) {
+    if (text.includes("Motion sensed")) {
       other = 0;
+      document.getElementById("motionicon").className = "fas fa-check onicon";
+      change_id(other);
+    } else {
+      other = 1;
+      document.getElementById("motionicon").className = "fas fa-times officon";
+      change_id(other);
+    }
+  }
+
+  if (text.includes('pressure')) {
+    if (text.includes("Pressure not detected")) {
+      other = 0;
+      document.getElementById("pressureicon").className = "fas fa-check onicon";
+      change_id(other);
+    } else {
+      other = 1;
+      document.getElementById("pressureicon").className = "fas fa-times officon";
+      change_id(other);
+    }
+  }
+
+  if (text.includes('distance')) {
+    if (text.includes("Disturbance detected")) {
+      other = 0;
+      document.getElementById("distanceicon").className = "fas fa-check onicon";
+      change_id(other);
+    } else {
+      other = 1;
+      document.getElementById("distanceicon").className = "fas fa-times officon";
+      change_id(other);
     }
   }
   $("#log").append("<br>" + $("<div/>").text(text).html());

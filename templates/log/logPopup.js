@@ -11,6 +11,10 @@ function sendRequest(sensorType, isSensorOn, dataByte) {
   );
 }
 
+function appendToLogs(text) {
+  $("#log").append("<br>" + $("<div/>").text(text).html());
+}
+
 function onLoad() {
   function isOpen(ws) {
     return socket.readyState === ws.OPEN;
