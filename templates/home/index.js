@@ -8,6 +8,7 @@ function motionOn() {
   } else {
     document.getElementById("onoroff").innerHTML = "Off";
     m = 0;
+    document.getElementById("content").className = "test";
     sendRequest("motion", m, m);
   }
 }
@@ -21,6 +22,7 @@ function pressureOn() {
   } else {
     document.getElementById("onoroff1").innerHTML = "Off";
     p = 0;
+    document.getElementById("content").className = "test";
     sendRequest("pressure", p, p);
   }
 }
@@ -36,6 +38,7 @@ function cameraOn() {
     c = 0;
     other = 1;
     document.getElementById("cameraicon").className = "fas fa-times officon";
+    document.getElementById("content").className = "test";
     cameraWindow.close();
   }
   sendRequest("camera", c, 0);
@@ -50,6 +53,7 @@ function distanceOn() {
   } else {
     document.getElementById("onoroff3").innerHTML = "Off";
     d = 0;
+    document.getElementById("content").className = "test";
     sendRequest("distance", d, d);
   }
 }

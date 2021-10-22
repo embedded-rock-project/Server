@@ -1,3 +1,26 @@
-<div class="alllogs">
-    <div id="log"></div>
-</div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs</title>
+    <link href="/templates/log/logPopup.css", rel="stylesheet" type="text/css">
+    <script src="//code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script type="text/javascript" src="/templates/log/logPopup.js"></script>
+    <script type="text/javascript" charset="utf-8">
+
+        $(document).ready(function(){
+            $.getScript("/templates/log/logPopup.js",function(){
+                onLoad();
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Logs</h1>
+    <div class="alllogs">
+        <div id="log"></div>
+    </div>
+</body>
+</html>
