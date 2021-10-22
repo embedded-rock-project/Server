@@ -55,6 +55,24 @@ async def test(request):
     return web.Response(text=open('templates/camera/cameraPopup.css').read(), content_type="text/css")
 
 
+@routes.get('/log_popup')
+async def test(request):
+    print('1')
+    return web.Response(text=open('templates/log/logPopup.html').read(), content_type="text/html")
+
+
+@routes.get('/templates/log/logPopup.js')
+async def test(request):
+    print('1')
+    return web.Response(text=open('templates/log/logPopup.js').read(), content_type="text/javascript")
+
+
+@routes.get('/templates/log/logPopup.css')
+async def test(request):
+    print('1')
+    return web.Response(text=open('templates/log/logPopup.css').read(), content_type="text/css")
+
+
 @routes.get('/pi')
 async def websocket_handler(request):
     global pi_websocket
